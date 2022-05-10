@@ -1,4 +1,4 @@
-package com.example.travel
+package com.example.travel.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
+import com.example.travel.adapter.InfoAdapter
+import com.example.travel.PlacesArray
+import com.example.travel.R
 import com.example.travel.databinding.FragmentInfoBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import java.lang.Exception

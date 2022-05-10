@@ -1,4 +1,4 @@
-package com.example.travel
+package com.example.travel.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.travel.R
 
 class InfoAdapter (val data : ArrayList<String>, val context : Context) : RecyclerView.Adapter<InfoAdapter.VH>() {
     class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {

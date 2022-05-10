@@ -1,15 +1,10 @@
-package com.example.travel
+package com.example.travel.fragment
 
-import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
@@ -17,12 +12,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.travel.PlacesArray
+import com.example.travel.R
 import com.example.travel.databinding.FragmentMapBinding
 import org.osmdroid.bonuspack.routing.OSRMRoadManager
 import org.osmdroid.bonuspack.routing.RoadManager
@@ -30,11 +25,9 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 
-
 class MapFragment : Fragment() {
 
     private lateinit var binding: FragmentMapBinding
-    val MY_USER_AGENT = "MyOwnUserAgent/1.0"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +36,7 @@ class MapFragment : Fragment() {
         try{
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
-            Configuration.getInstance().userAgentValue = MY_USER_AGENT
+            Configuration.getInstance().userAgentValue = "MyOwnUserAgent/1.0"
             binding = FragmentMapBinding.inflate(inflater)
 
             binding.map.minZoomLevel = 4.0
@@ -93,6 +86,11 @@ class MapFragment : Fragment() {
                 binding.map.overlays.add(i)
             }
             binding.map.overlays.add(RoadManager.buildRoadOverlay(road))
+            requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+                    findNavController().navigate(R.id.action_mapFragment_to_menuFragment)
+                }
+            })
         }
         catch (ex: Exception){
             Log.e("Exception in MapFragment.kt: ", "$ex")
